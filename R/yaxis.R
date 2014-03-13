@@ -13,7 +13,7 @@
 yaxis <- function(values)
 {
     n <- length(values)
-    message("click on the y axis at places where x=", paste(values, collapse=","))
+    message("Click on the y axis at places where x=", paste(values, collapse=","), ".")
     xy <- idlocator(n)
     m <- lm(values ~ xy$y)
     C <- as.numeric(coef(m))

@@ -12,8 +12,7 @@
 
 getdata <- function(X, Y, S, U)
 {
-    message("escape by clicking to right of or above top-right corner of box")
-    message("undo by clicking to left of or below bottom-left corner of box")
+    message("Click on data points, or 'UNDO' to ignore last a click; click 'STOP' to end.")
     x <- y <- NULL
     i <- 1
     while (TRUE) {

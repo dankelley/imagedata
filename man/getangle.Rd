@@ -12,7 +12,7 @@ counterclockwise angle in degrees
 }
 \description{
 'getangle' finds the counterclockwise angle at which the
-plot has been rotated.  It asks the user to click on two
-ends of the x axis, then two ends of the y axis.
+plot has been rotated, determining the value from the user
+via pointer clicks.
 }
 
