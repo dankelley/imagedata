@@ -9,7 +9,7 @@
 
 bottomleft <- function()
 {
-    message("click the bottom-left corner of the plot box")
+    message("click at or beyond the bottom-left corner of the plot box")
     xy <- idlocator(1)
     list(x=xy$x, y=xy$y)
 }

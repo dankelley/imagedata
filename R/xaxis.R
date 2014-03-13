@@ -7,7 +7,7 @@
 #' device.  The mapping is stored in global variables xa and xb.
 #'
 #' @param values a vector of values on the x axis, typically labelled ticks
-#' @return list containing 'a' and 'b'
+#' @return list containing 'a' and 'b', for the linear mapping, and 'angle'
 #' @export xaxis
 
 xaxis <- function(values)
@@ -17,6 +17,8 @@ xaxis <- function(values)
     xy <- idlocator(n)
     m <- lm(values ~ xy$x)
     C <- as.numeric(coef(m))
-    list(a=C[1], b=C[2])
+    a <- C[1]
+    b <- C[2]
+    list(a=a, b=b)
 }
 

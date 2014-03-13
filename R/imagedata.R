@@ -1,17 +1,42 @@
 #' Digitize a linear-scale plot that is shown in a graphics window.
 #'
-#' 'imagedata' is the main function of the 'imagedata' package.  It
-#' invites the user to click certain points along the axes, and then
-#' to click the desired digitization points within the plot area. 
-#' Clicking to the lower-left of the plot area undoes the last
-#' digitized point, and clickint to the upper-right finishes the
-#' digitization.  To digitize a second curve with the same
-#' axes, use 'getdata', supplying it with values returned by
-#' 'imagedata'.
+#' 'imagedata' is the main function of the 'imagedata' package.  
+#' If 'rotated' is TRUE, then the first step is to display the image
+#' with a red diagonal line and red dotted horizontal and vertical lines,
+#' inviting the user to click above or below the diagonal line to 
+#' alter the rotation angle.  Any click that is to the left of the
+#' centre of the image will end this step, storing the inferred angle.
+#' The idea of this interactive method is to help in cases of flawed
+#' documents, e.g. those created with a photocopier.
+#' 
+#' Next, the user asked to click on the x axis, at values given
+#' by the 'xaxis' argument.  These values are normally at tick
+#' marks.  The same is then done for the y axis.
+#'
+#' Then the user is asked to click at the top-right of the plotting
+#' area.  Actually, it can be a bit outside the area, if desired, or
+#' inside it.  This establishes a "stop" zone, which will be drawn
+#' on the plot.  Once the actual digitization is started, clicking
+#' in this zone ends the processing.
+#' 
+#' Thn the user is asked to click to the lower-left of the plot
+#' to establish an "undo" zone.  Clicking in that zone removes
+#' the most recently acquired point.
+#'
+#' Finally, the actual digitization process begins, with the
+#' user clicking within the plot region, using the "undo"
+#' zone to correct mistakes, and the "stop" zone to finish.
+#'
+#' Points that are clicked are indicated on the plot.
+#'
+#' To digitize a second curve with the same axes, one may 
+#' use 'getdata()', supplying it with 'X', 'Y', 'S' and 'U'
+#' values returend by 'imagedata'.
 #'
 #' @param image name of image file (must be PNG)
 #' @param xaxis values along the x axis, typically at tick marks
 #' @param yaxis values along the y axis, typically at tick marks
+#' @param rotated a logical indicating whether the axes are rotated
 #' @return a list containing 'x' and 'y' values, which are the
 #' digitized points, 'X' and 'Y', which are lists containing 'a'
 #' and 'b' values that hold the axis transformations, 'S', a
@@ -30,16 +55,21 @@
 #' plot(x, y)
 #' dev.off()
 #'
-#' xy <- imagedata("test.png", c(2, 10), c(4, 10))
+#' xy <- imagedata("../test.png", c(2, 10), c(4, 10), rotated=TRUE)
 #' }
 #' @export imagedata
 
-imagedata <- function(image, xaxis, yaxis)
+imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
 {
-    png <- readPNG(image)
+    image <- readPNG(image)
     par(mar=rep(0, 4))
-    plot(0:1, 0:1, type='n')
-    rasterImage(png[,,1], 0, 0, 1, 1)
+    plot(0:1, 0:1, type='n', asp=1)
+    rasterImage(image, 0, 0, 1, 1)
+    if (rotated) {
+        angle <- getangle(image)
+        plot(0:1, 0:1, type='n')
+        rasterImage(image[,,1], 0, 0, 1, 1, angle=angle)
+    }
     X <- xaxis(xaxis)
     Y <- yaxis(yaxis)
     S <- topright()

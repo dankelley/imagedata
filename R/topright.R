@@ -9,7 +9,7 @@
 
 topright <- function()
 {
-    message("click the top-right corner of the plot box")
+    message("click at or beyond the top-right corner of the plot box")
     xy <- idlocator(1)
     list(x=xy$x, y=xy$y)
 }

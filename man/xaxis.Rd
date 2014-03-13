@@ -9,7 +9,8 @@ xaxis(values)
   labelled ticks}
 }
 \value{
-list containing 'a' and 'b'
+list containing 'a' and 'b', for the linear mapping, and
+'angle'
 }
 \description{
 xaxis takes a vector of values along the y axis (commonly
