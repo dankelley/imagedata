@@ -25,17 +25,20 @@ corner of the stop zone, and 'U', a list containing the 'x'
 and 'y' defining the upper-right corner of the undo zone.
 }
 \description{
-'imagedata' is the main function of the 'imagedata'
-package. If 'rotated' is TRUE, then the first step is to
-display the image with a red diagonal line and red dotted
-horizontal and vertical lines, inviting the user to click
-above or below the diagonal line to alter the rotation
-angle.  Any click that is to the left of the centre of the
-image will end this step, storing the inferred angle. The
-idea of this interactive method is to help in cases of
-flawed documents, e.g. those created with a photocopier.
+'imagedata', the main function of the 'imagedata' package,
+digitizes points from images.  As of now, the images must
+be in PNG format, and the axes must be linear.
 }
 \details{
+If 'rotated' is TRUE, then the first step is to display the
+image with a red diagonal line and red dotted horizontal
+and vertical lines, inviting the user to click above or
+below the diagonal line to alter the rotation angle.  Any
+click that is to the left of the centre of the image will
+end this step, storing the inferred angle. The idea of this
+interactive method is to help in cases of flawed documents,
+e.g. those created with a photocopier.
+
 Next, the user asked to click on the x axis, at values
 given by the 'xaxis' argument.  These values are normally
 at tick marks.  The same is then done for the y axis.

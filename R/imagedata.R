@@ -1,6 +1,9 @@
 #' Digitize a linear-scale plot that is shown in a graphics window.
 #'
-#' 'imagedata' is the main function of the 'imagedata' package.  
+#' 'imagedata', the main function of the 'imagedata' package,  
+#' digitizes points from images.  As of now, the images must
+#' be in PNG format, and the axes must be linear.
+#'
 #' If 'rotated' is TRUE, then the first step is to display the image
 #' with a red diagonal line and red dotted horizontal and vertical lines,
 #' inviting the user to click above or below the diagonal line to 
