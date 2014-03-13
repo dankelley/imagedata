@@ -71,7 +71,11 @@ par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(x, y)
 dev.off()
 
-xy <- imagedata("../test.png", c(2, 10), c(4, 10), rotated=TRUE)
+# Test with a non-rotated image (e.g. screen capture)
+xy <- imagedata("test.png", c(2, 10), c(4, 10))
+
+# Test with a rotated image (e.g. photocopy)
+xy <- imagedata("testr.png", c(2, 10), c(4, 10), rotated=TRUE)
 }
 }
 

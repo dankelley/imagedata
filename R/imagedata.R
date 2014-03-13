@@ -55,7 +55,11 @@
 #' plot(x, y)
 #' dev.off()
 #'
-#' xy <- imagedata("../test.png", c(2, 10), c(4, 10), rotated=TRUE)
+#' # Test with a non-rotated image (e.g. screen capture)
+#' xy <- imagedata("test.png", c(2, 10), c(4, 10))
+#'
+#' # Test with a rotated image (e.g. photocopy)
+#' xy <- imagedata("testr.png", c(2, 10), c(4, 10), rotated=TRUE)
 #' }
 #' @export imagedata
 
