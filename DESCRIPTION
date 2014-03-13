@@ -1,0 +1,15 @@
+Package: imagedata
+Version: 0.1
+Date: 2014-03-13
+Title: Digitize data in PNG files
+Author: Dan Kelley <Dan.Kelley@Dal.Ca>
+Maintainer: Dan Kelley <Dan.Kelley@Dal.Ca>
+Depends:
+    R (>= 2.15),
+    png
+BugReports:
+    https://github.com/dankelley/imagedata/issues?sort=created&direction=desc&state=open
+Description: Works only with PNG files, and only with linear axes.
+License: GPL (>= 2)
+URL: http://dankelley.github.com/digization/
+Packaged: Dan Kelley
