@@ -9,9 +9,13 @@
 
 bottomleft <- function()
 {
-    message("click at or beyond the bottom-left corner of the plot box")
-    xy <- idlocator(1)
-    list(x=xy$x, y=xy$y)
+    flush.console()
+    cat("click at or beyond the bottom-left corner of the plot box\n")
+    flush.console()
+    dev.flush()
+    xy <- locator(1)
+    dev.flush()
+    xy
 }
 
 showbottomleft <- function(xy)
@@ -19,7 +23,7 @@ showbottomleft <- function(xy)
     par <- par('usr')
     left <- par[1]
     bottom <- par[3]
-    polygon(c(left, xy$x, xy$x, left), c(bottom, bottom, xy$y, xy$y), col='#F7819F') # pink (stop)
+    polygon(c(left, xy$x, xy$x, left), c(bottom, bottom, xy$y, xy$y), col='#FACC2E')
     text(0.5*(xy$x + left), 0.5 * (xy$y + bottom), "UNDO", cex=1/2)
 }
 

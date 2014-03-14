@@ -12,9 +12,13 @@
 
 xaxis <- function(values)
 {
+    flush.console()
+    cat("Click on the x axis at places where x=", paste(values, collapse=","), '\n')
+    flush.console()
     n <- length(values)
-    message("Click on the x axis at places where x=", paste(values, collapse=","), '.')
-    xy <- idlocator(n)
+    dev.flush()
+    xy <- locator(n)
+    dev.flush()
     m <- lm(values ~ xy$x)
     C <- as.numeric(coef(m))
     a <- C[1]

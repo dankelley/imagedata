@@ -22,7 +22,7 @@
 #' on the plot.  Once the actual digitization is started, clicking
 #' in this zone ends the processing.
 #' 
-#' Thn the user is asked to click to the lower-left of the plot
+#' Then the user is asked to click to the lower-left of the plot
 #' to establish an "undo" zone.  Clicking in that zone removes
 #' the most recently acquired point.
 #'
@@ -74,8 +74,6 @@ imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
     rasterImage(image, 0, 0, 1, 1)
     if (rotated) {
         angle <- getangle(image)
-        plot(0:1, 0:1, type='n')
-        rasterImage(image[,,1], 0, 0, 1, 1, angle=angle)
     }
     X <- xaxis(xaxis)
     Y <- yaxis(yaxis)

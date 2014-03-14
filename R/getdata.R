@@ -12,11 +12,11 @@
 
 getdata <- function(X, Y, S, U)
 {
-    message("Click on data points, or 'UNDO' to ignore last a click; click 'STOP' to end.")
+    cat("Click on data points, or 'UNDO' to ignore last a click; click 'STOP' to end.\n")
     x <- y <- NULL
     i <- 1
     while (TRUE) {
-        xy <- idlocator(1)
+        xy <- idlocator()
         xx <- X$a + X$b * xy$x 
         yy <- Y$a + Y$b * xy$y 
         if (xy$x > S$x || xy$y > S$y) {

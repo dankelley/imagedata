@@ -9,9 +9,13 @@
 
 topright <- function()
 {
-    message("click at or beyond the top-right corner of the plot box")
-    xy <- idlocator(1)
-    list(x=xy$x, y=xy$y)
+    flush.console()
+    cat("click at or beyond the top-right corner of the plot box\n")
+    flush.console()
+    dev.flush()
+    xy <- locator(1)
+    dev.flush()
+    xy
 }
 
 showtopright <- function(xy)
@@ -19,7 +23,7 @@ showtopright <- function(xy)
     par <- par('usr')
     right <- par[2]
     top <- par[4]
-    polygon(c(xy$x, right, right, xy$x), c(xy$y, xy$y, top, top), col='#FACC2E') # amber (undo)
+    polygon(c(xy$x, right, right, xy$x), c(xy$y, xy$y, top, top), col='#F7819F')
     text(0.5*(xy$x + right), 0.5 * (xy$y + top), "STOP", cex=1/2)
 }
 
