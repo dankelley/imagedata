@@ -9,7 +9,7 @@
 
 topright <- function()
 {
-    message("click at or beyond the top-right corner of the plot box\n")
+    message("Click at or beyond the top-right corner of the plot box to make a STOP region.\n")
     xy <- idlocator(1, col="#F7819F")
     xy
 }

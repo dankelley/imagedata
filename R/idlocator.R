@@ -5,7 +5,6 @@ idlocator <- function(n=1, S=NULL, U=NULL, col='red', pch=20, cex=1/2)
     x <- NULL
     y <- NULL
     i <- 1
-    str(U)
     while (i <= n) {
         xy <- locator(1, type='p', col=col, pch=pch, cex=cex)
         alarm()
@@ -20,11 +19,9 @@ idlocator <- function(n=1, S=NULL, U=NULL, col='red', pch=20, cex=1/2)
             break
         }
         if (!is.null(U) && (xy$x < U$x && xy$y < U$y)) { # UNDO
-            cat(" undoing.  first, x:", x, "\n")
             x <- head(x, -2)
             y <- head(y, -2)
             i <- i - 2
-            cat(" done undoing.  now x:", x, "\n")
         }
     }
     list(x=x, y=y)
