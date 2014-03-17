@@ -75,10 +75,12 @@ plot(x, y)
 dev.off()
 
 # Test with a non-rotated image (e.g. screen capture)
-xy <- imagedata("test.png", c(2, 10), c(4, 10))
+file <- system.file("extdata", "test.png", package="imagedata")
+xy <- imagedata(file, c(2, 10), c(4, 10))
 
 # Test with a rotated image (e.g. photocopy)
-xy <- imagedata("testr.png", c(2, 10), c(4, 10), rotated=TRUE)
+file <- system.file("extdata", "testr.png", package="imagedata")
+xy <- imagedata(file, c(2, 10), c(4, 10), rotated=TRUE)
 }
 }
 
