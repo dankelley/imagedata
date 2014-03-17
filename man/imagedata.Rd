@@ -50,7 +50,7 @@ which will be drawn on the plot.  Once the actual
 digitization is started, clicking in this zone ends the
 processing.
 
-Thn the user is asked to click to the lower-left of the
+Then the user is asked to click to the lower-left of the
 plot to establish an "undo" zone.  Clicking in that zone
 removes the most recently acquired point.
 

@@ -9,12 +9,8 @@
 
 bottomleft <- function()
 {
-    flush.console()
-    cat("click at or beyond the bottom-left corner of the plot box\n")
-    flush.console()
-    dev.flush()
-    xy <- locator(1)
-    dev.flush()
+    message("click at or beyond the bottom-left corner of the plot box\n")
+    xy <- idlocator(1, col="#FACC2E")
     xy
 }
 

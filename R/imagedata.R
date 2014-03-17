@@ -75,12 +75,12 @@ imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
     if (rotated) {
         angle <- getangle(image)
     }
-    X <- xaxis(xaxis)
-    Y <- yaxis(yaxis)
-    S <- topright()
-    showtopright(S)
     U <- bottomleft()
     showbottomleft(U)
+    S <- topright()
+    showtopright(S)
+    X <- xaxis(xaxis, U=U)
+    Y <- yaxis(yaxis, U=U)
     xy <- getdata(X=X, Y=Y, S=S, U=U)
     list(x=xy$x, y=xy$y, X=X, Y=Y, S=S, U=U)
 }

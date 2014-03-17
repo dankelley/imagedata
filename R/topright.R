@@ -9,12 +9,8 @@
 
 topright <- function()
 {
-    flush.console()
-    cat("click at or beyond the top-right corner of the plot box\n")
-    flush.console()
-    dev.flush()
-    xy <- locator(1)
-    dev.flush()
+    message("click at or beyond the top-right corner of the plot box\n")
+    xy <- idlocator(1, col="#F7819F")
     xy
 }
 

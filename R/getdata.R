@@ -12,27 +12,10 @@
 
 getdata <- function(X, Y, S, U)
 {
-    cat("Click on data points, or 'UNDO' to ignore last a click; click 'STOP' to end.\n")
-    x <- y <- NULL
-    i <- 1
-    while (TRUE) {
-        xy <- idlocator()
-        xx <- X$a + X$b * xy$x 
-        yy <- Y$a + Y$b * xy$y 
-        if (xy$x > S$x || xy$y > S$y) {
-            return(list(x=x, y=y))
-        }
-        if (xy$x < U$x || xy$y < U$y) {
-            cat("x[", i, "] = ", tail(x, 1), " and y[", i, "] = ", tail(y, 1), " REMOVED\n", sep="")
-            x <- head(x, -1)
-            y <- head(y, -1)
-            i <- i - 1
-        } else {
-            cat("x[", i, "] = ", xx, " and y[", i, "] = ", yy, " ADDED\n", sep="")
-            x <- c(x, xx)
-            y <- c(y, yy)
-            i <- i + 1
-        }
-    }
+    message("Click on data points, or 'UNDO' to ignore last a click; click 'STOP' to end.\n")
+    xy <- idlocator(100, S=S, U=U)
+    x <- X$a + X$b * xy$x 
+    y <- Y$a + Y$b * xy$y 
+    return(list(x=x, y=y))
 }
 
