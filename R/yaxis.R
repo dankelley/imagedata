@@ -19,7 +19,7 @@ yaxis <- function(values, U=NULL)
         y <- c(y, idlocator(1, U=U, col='blue')$y)
     }
     if (length(y) != length(values))
-        stop("you must click each requested point")
+        stop("You must click each requested point")
     m <- lm(values ~ y)
     C <- as.numeric(coef(m))
     a <- C[1]

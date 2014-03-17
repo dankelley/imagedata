@@ -9,7 +9,7 @@
 
 bottomleft <- function()
 {
-    message("click at or beyond the bottom-left corner of the plot box\n")
+    message("Click at or beyond the bottom-left corner of the plot box to make an UNDO region.\n")
     xy <- idlocator(1, col="#FACC2E")
     xy
 }
