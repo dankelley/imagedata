@@ -5,12 +5,14 @@ will be added to imagedata as they show their worth through real-life use.
 The main function is imagedata(), and its documentation should be enough to get
 people started.
     
-Installing imagedata is a two-step process
+Installing the latest (development) version requires just two lines in an R
+console:
+
 
     library(devtools)
-    install_github('oce', 'dankelley', 'develop')
+    install_github('imagedata', 'dankelley', 'develop')
 
-after which using it is a single function call e.g.
+After installation, imagedata is used as e.g.
 
     library(imagedata)
     xy <- imagedata("test.png", c(2, 10), c(4, 10))
@@ -21,3 +23,4 @@ for a non-rotated image (e.g. from a screen capture) or e.g.
 
 for a rotated image (e.g. from a photocopy).
 
+Please report any bugs on the "issues" part of the github development website.
