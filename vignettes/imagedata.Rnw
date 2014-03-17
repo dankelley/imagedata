@@ -56,10 +56,10 @@ $x$ axis (typically the location of tick marks), while its third is the same for
 $y$.  Its fourth is a logical quantity indicating whether the image needs to be
 corrected for rotation (which may happen with a scanned photocopy).
 
-The steps will be illustrated with diagrams.
+The steps may be illustrated with diagrams.
 
-\begin{figure}
-    \includegraphics[width=\hsize]{1.png}
+\begin{figure}[ht]
+    \begin{center}\includegraphics[width=0.5\hsize]{1.png}\end{center}
     \caption{\label{f:rotation}The image-rotation window.}
 \end{figure}
 
@@ -69,36 +69,23 @@ Figure~\ref{f:rotation}.  As indicated in the Figure, messages appear in the
 console, indicating the expected user action.  Once correction for rotation is
 complete, processing occurs as follows.
 
-The $x$ and $y$ transformations are determined by analysis of locations clicked
-on the plotting device.  First, the user is invited to click along the $x$ axis
-at the locations indicated by the second argument to \function{imagedata}.
-After that, the same is done for $y$.
-
-The user is then invited to click at the lower-left edge of what will become a
-``stop'' region.  Typically this is at the top-right corner of the graph, or a
-bit above and to the right of this spot.  Once the click is made, a coloured box
-will be drawn, with the word \code{STOP} in it.
-
-Then the user is invited to click at the upper-right edge of what will become an
-``undo'' region.  Again, this is coloured.
-
-After that, the user digitizes data by clicking at interesting points within the
-graph.  Coloured points appear at the clicked locations.  Each point is added to
-a list.  Clicking in the ``undo'' zone will remove the most recently added
-point.
-
-
-\begin{figure}
-    \includegraphics[width=\hsize]{2.png}
-    \caption{\label{f:digitization}The digitization window.}
+\begin{figure}[ht]
+    \begin{center}\includegraphics[width=.5\hsize]{2.png}\end{center}
+    \caption{\label{f:digitization}The digitization window, showing a case
+    with 3 points (red dots) have been digitized.  The user was sloppy, and
+    should have clicked in the amber-coloured "UNDO" region after clicking the
+    point at $x=2$.}
 \end{figure}
 
-To finish the work, click in the ``stop'' box.  All of the above is illustrated
-inf Figure~\ref{f:digitization}.
-
-The return value from \function{imagedata} contains (among other things) a
-vector called \code{x} and another called \code{y}.  These are the locations of
-the clicked points, in the coordinates of the graph.
+The user is first invited to click at the lower-left edge of what will become a
+``UNDO'' region.  This should not intersect a part of the plot that has data.
+Once the click is made, a coloured box will be drawn, with the word \code{UNDO}
+in it.  A similar procedure yields a \code{STOP} region at the top-right of the
+image.  Next, the user is invited to click along the $x$ and $y$ axes, at
+locations specified by the second and third arguments to \function{imagedata}.
+Corrections may be made by clicking \code{UNDO}.  The process is ended when the
+user clicks \code{STOP}.  Figure~\ref{f:digitization} illustrates this
+procedure.
 
 To add data for a second curve, use \function{getdata}, supplying it with some
 arguments that were returned by a previous call to \function{imagedata}.  This
