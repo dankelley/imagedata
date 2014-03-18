@@ -40,6 +40,7 @@
 #' @param xaxis values along the x axis, typically at tick marks
 #' @param yaxis values along the y axis, typically at tick marks
 #' @param rotated a logical indicating whether the axes are rotated
+#' @param verbose a logical indicating whether to indicate data as clicked
 #' @return a list containing 'x' and 'y' values, which are the
 #' digitized points, 'X' and 'Y', which are lists containing 'a'
 #' and 'b' values that hold the axis transformations, 'S', a
@@ -66,14 +67,14 @@
 #' }
 #' @export imagedata
 
-imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
+imagedata <- function(image, xaxis, yaxis, rotated=FALSE, verbose=TRUE)
 {
     image <- readPNG(image)
     par(mar=rep(0, 4))
     plot(0:1, 0:1, type='n', asp=1)
     rasterImage(image, 0, 0, 1, 1)
     if (rotated) {
-        angle <- getangle(image)
+        angle <- getangle(image, verbose=verbose)
     }
     U <- bottomleft()
     showbottomleft(U)
@@ -81,7 +82,7 @@ imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
     showtopright(S)
     X <- xaxis(xaxis, U=U)
     Y <- yaxis(yaxis, U=U)
-    xy <- getdata(X=X, Y=Y, S=S, U=U)
+    xy <- getdata(X=X, Y=Y, S=S, U=U, verbose=verbose)
     list(x=xy$x, y=xy$y, X=X, Y=Y, S=S, U=U)
 }
 

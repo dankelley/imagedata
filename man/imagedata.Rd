@@ -2,7 +2,7 @@
 \alias{imagedata}
 \title{Digitize a linear-scale plot that is shown in a graphics window.}
 \usage{
-imagedata(image, xaxis, yaxis, rotated = FALSE)
+imagedata(image, xaxis, yaxis, rotated = FALSE, verbose = TRUE)
 }
 \arguments{
   \item{image}{name of image file (must be PNG)}
@@ -15,6 +15,9 @@ imagedata(image, xaxis, yaxis, rotated = FALSE)
 
   \item{rotated}{a logical indicating whether the axes are
   rotated}
+
+  \item{verbose}{a logical indicating whether to indicate
+  data as clicked}
 }
 \value{
 a list containing 'x' and 'y' values, which are the
@@ -75,12 +78,10 @@ plot(x, y)
 dev.off()
 
 # Test with a non-rotated image (e.g. screen capture)
-file <- system.file("extdata", "test.png", package="imagedata")
-xy <- imagedata(file, c(2, 10), c(4, 10))
+xy <- imagedata("test.png", c(2, 10), c(4, 10))
 
 # Test with a rotated image (e.g. photocopy)
-file <- system.file("extdata", "testr.png", package="imagedata")
-xy <- imagedata(file, c(2, 10), c(4, 10), rotated=TRUE)
+xy <- imagedata("testr.png", c(2, 10), c(4, 10), rotated=TRUE)
 }
 }
 

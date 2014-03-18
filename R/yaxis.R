@@ -14,9 +14,10 @@
 yaxis <- function(values, U=NULL)
 {
     y <- NULL
+    message("Setting up an y coordinate system...")
     for (value in values) {
-        message("Click on the y axis where y=", value, "\n")
-        y <- c(y, idlocator(1, U=U, col='blue')$y)
+        message("  click on the y axis where y=", value)
+        y <- c(y, idlocator(n=1, U=U, col='blue', verbose=FALSE)$y)
     }
     if (length(y) != length(values))
         stop("You must click each requested point")
