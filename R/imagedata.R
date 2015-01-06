@@ -40,7 +40,6 @@
 #' @param xaxis values along the x axis, typically at tick marks
 #' @param yaxis values along the y axis, typically at tick marks
 #' @param rotated a logical indicating whether the axes are rotated
-#' @param verbose a logical indicating whether to indicate data as clicked
 #' @return a list containing 'x' and 'y' values, which are the
 #' digitized points, 'X' and 'Y', which are lists containing 'a'
 #' and 'b' values that hold the axis transformations, 'S', a
@@ -67,22 +66,73 @@
 #' }
 #' @export imagedata
 
-imagedata <- function(image, xaxis, yaxis, rotated=FALSE, verbose=TRUE)
+imagedata <- function(image, xaxis, yaxis, rotated=FALSE)
 {
     image <- readPNG(image)
     par(mar=rep(0, 4))
     plot(0:1, 0:1, type='n', asp=1)
     rasterImage(image, 0, 0, 1, 1)
     if (rotated) {
-        angle <- getangle(image, verbose=verbose)
+        cat("Repeatedly click near solid blue line to rotate; later, click near dotted portion to end.\n")
+        flush.console()
+        angle <- getangle(image)
+        cat("The final rotation angle was", round(angle, 2), " deg counterclockwise.\n")
     }
+    cat("Click outside the bottom-left plot corner to create an UNDO region.\n")
+    flush.console()
     U <- bottomleft()
+    flush.console()
     showbottomleft(U)
+    flush.console()
+    cat("Click outside the top-right plot corner to create a STOP region.\n")
+    flush.console()
     S <- topright()
     showtopright(S)
-    X <- xaxis(xaxis, U=U)
-    Y <- yaxis(yaxis, U=U)
-    xy <- getdata(X=X, Y=Y, S=S, U=U, verbose=verbose)
-    list(x=xy$x, y=xy$y, X=X, Y=Y, S=S, U=U)
+    xx <- NULL
+    for (x in xaxis) {
+        cat("Click on the x axis where x=", x, "\n")
+        flush.console()
+        xx <- c(xx, idlocator(bell=TRUE, col="red", pch=20, cex=1)$x)
+    }
+    ab <- as.numeric(coef(lm(xaxis ~ xx)))
+    X <- list(a=ab[1], b=ab[2])
+    cat("X transformation: x=", X$a, " + ", X$b, "*xPixel\n")
+    flush.console()
+    yy <- NULL
+    for (y in yaxis) {
+        cat("Click on the y axis where y=", y, "\n")
+        flush.console()
+        yy <- c(yy, idlocator(bell=TRUE, col="blue", pch=20, cex=1)$y)
+    }
+    ab <- as.numeric(coef(lm(yaxis ~ yy)))
+    Y <- list(a=ab[1], b=ab[2])
+    cat("Y transformation: y=", Y$a, " + ", Y$b, "*yPixel\n")
+    flush.console()
+    x <- y <- NULL
+    n <- 0
+    cat("Click on data points, 'UNDO' to ignore last a click; click 'STOP' to end.\n")
+    flush.console()
+    ## FIXME: put loop here
+    while (TRUE) {
+        xy <- getdata(X=X, Y=Y, S=S, U=U)
+        if (xy$status=="STOP")
+            break
+        if (xy$status=="UNDO") {
+            if (length(x)) {
+                flush.console()
+                x <- head(x, -1)
+                y <- head(y, -1)
+                n <- n - 1
+                cat("Removed datum #", n, "with x=", tail(x, 1), " and y=", tail(y, 1), " [An upcoming version will erase the point]\n")
+                flush.console()
+            }
+        } else if (xy$status=="DATA") {
+            x <- c(x, xy$x)
+            y <- c(y, xy$y)
+            n <- n + 1
+            cat("Added datum #", n, "with x=", tail(x, 1), " and y=", tail(y, 1), "\n")
+        }
+    }
+    list(x=x, y=y, X=X, Y=Y, S=S, U=U)
 }
 

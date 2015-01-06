@@ -73,12 +73,12 @@ complete, processing occurs as follows.
     \begin{center}\includegraphics[width=.5\hsize]{2.png}\end{center}
     \caption{\label{f:digitization}The digitization window, showing a case
     with 3 points (red dots) have been digitized.  The user was sloppy, and
-    should have clicked in the amber-coloured "UNDO" region after clicking the
+    should have clicked in the amber-coloured \code{UNDO} region after clicking the
     point at $x=2$.}
 \end{figure}
 
 The user is first invited to click at the lower-left edge of what will become a
-``UNDO'' region.  This should not intersect a part of the plot that has data.
+\code{UNDO} region.  This should not intersect a part of the plot that has data.
 Once the click is made, a coloured box will be drawn, with the word \code{UNDO}
 in it.  A similar procedure yields a \code{STOP} region at the top-right of the
 image.  Next, the user is invited to click along the $x$ and $y$ axes, at

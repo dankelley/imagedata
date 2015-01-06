@@ -9,9 +9,7 @@
 
 topright <- function()
 {
-    message("Click at or beyond the top-right corner of the plot box to make a STOP region.")
-    xy <- idlocator(1, col="#F7819F", bell=FALSE, verbose=FALSE)
-    xy
+    idlocator(col="#F7819F", bell=FALSE, verbose=FALSE)[c("x", "y")]
 }
 
 showtopright <- function(xy)
@@ -20,6 +18,6 @@ showtopright <- function(xy)
     right <- par[2]
     top <- par[4]
     polygon(c(xy$x, right, right, xy$x), c(xy$y, xy$y, top, top), col='#F7819F')
-    text(0.5*(xy$x + right), 0.5 * (xy$y + top), "STOP", cex=1/2)
+    text(0.5*(xy$x + right), 0.5 * (xy$y + top), "STOP", cex=1/2, font=2)
 }
 

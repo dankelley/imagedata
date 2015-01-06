@@ -9,9 +9,7 @@
 
 bottomleft <- function()
 {
-    message("Click at or beyond the bottom-left corner of the plot box to make an UNDO region.")
-    xy <- idlocator(1, col="#FACC2E", bell=FALSE, verbose=FALSE)
-    xy
+    idlocator(col="#FACC2E", bell=FALSE, verbose=FALSE)[c("x", "y")]
 }
 
 showbottomleft <- function(xy)
@@ -20,6 +18,6 @@ showbottomleft <- function(xy)
     left <- par[1]
     bottom <- par[3]
     polygon(c(left, xy$x, xy$x, left), c(bottom, bottom, xy$y, xy$y), col='#FACC2E')
-    text(0.5*(xy$x + left), 0.5 * (xy$y + bottom), "UNDO", cex=1/2)
+    text(0.5*(xy$x + left), 0.5 * (xy$y + bottom), "UNDO", cex=1/2, font=2)
 }
 

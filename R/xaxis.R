@@ -14,10 +14,9 @@
 xaxis <- function(values, U=NULL)
 {
     x <- NULL
-    message("Setting up an x coordinate system...")
     for (value in values) {
-        message("  click on the x axis where x=", value)
-        x <- c(x, idlocator(n=1, U=U, col='blue', verbose=FALSE)$x)
+        flush.console()
+        x <- c(x, idlocator(U=U, col='blue')$x)
     }
     if (length(x) != length(values))
         stop("you must click each requested point")
