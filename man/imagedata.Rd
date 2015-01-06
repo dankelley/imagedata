@@ -4,7 +4,8 @@
 \alias{imagedata}
 \title{Digitize a linear-scale plot that is shown in a graphics window.}
 \usage{
-imagedata(image, xaxis, yaxis, rotated = FALSE)
+imagedata(image, xaxis, yaxis, rotated = FALSE, col = "red", pch = 20,
+  cex = 1)
 }
 \arguments{
 \item{image}{name of image file (must be PNG)}
@@ -14,22 +15,31 @@ imagedata(image, xaxis, yaxis, rotated = FALSE)
 \item{yaxis}{values along the y axis, typically at tick marks}
 
 \item{rotated}{a logical indicating whether the axes are rotated}
+
+\item{col}{colour of points, as for \code{\link{par}}}
+
+\item{pch}{type of points, as for \code{\link{par}}}
+
+\item{cex}{size of points, as for \code{\link{par}}}
 }
 \value{
-a list containing 'x' and 'y' values, which are the
-digitized points, 'X' and 'Y', which are lists containing 'a'
-and 'b' values that hold the axis transformations, 'S', a
-list containing 'x' and 'y' defining the lower-left corner
-of the stop zone, and 'U', a list containing the 'x' and 'y'
-defining the upper-right corner of the undo zone.
+\code{imagedata} returns a list containing \code{x} and \code{y} values, which are the
+digitized points, \code{X} and \code{Y}, which are lists containing \code{a}
+and \code{b} values that hold the axis transformations, \code{S}, a
+list containing \code{x} and \code{y} defining the lower-left corner
+of the STOP zone, and \code{U}, a list containing the \code{x} and \code{y}
+defining the upper-right corner of the UNDO zone.
 }
 \description{
-'imagedata', the main function of the 'imagedata' package,
+\code{imagedata}, the main function of the 'imagedata' package,
 digitizes points from images.  As of now, the images must
-be in PNG format, and the axes must be linear.
+be in PNG format, and the axes must be linear. Also, at
+least on OS X machines, the plot device type must be
+quartz, since x11 does not properly buffer text in the console
+when combined with clicks in the plot window.
 }
 \details{
-If 'rotated' is TRUE, then the first step is to display the image
+If \code{rotated} is TRUE, then the first step is to display the image
 with a red diagonal line and red dotted horizontal and vertical lines,
 inviting the user to click above or below the diagonal line to
 alter the rotation angle.  Any click that is to the left of the
@@ -37,29 +47,22 @@ centre of the image will end this step, storing the inferred angle.
 The idea of this interactive method is to help in cases of flawed
 documents, e.g. those created with a photocopier.
 
+Then the user is asked to click somewhere at the bottom-left of
+image, to set up an "UNDO" zone, and then the top-right, to
+set up a "STOP" zone. Normally these zones are placed outside
+the axis; they only have to be large enough to be easily clicked
+within.
+
 Next, the user asked to click on the x axis, at values given
-by the 'xaxis' argument.  These values are normally at tick
+by the \code{xaxis} argument.  These values are normally at tick
 marks.  The same is then done for the y axis.
 
-Then the user is asked to click at the top-right of the plotting
-area.  Actually, it can be a bit outside the area, if desired, or
-inside it.  This establishes a "stop" zone, which will be drawn
-on the plot.  Once the actual digitization is started, clicking
-in this zone ends the processing.
-
-Then the user is asked to click to the lower-left of the plot
-to establish an "undo" zone.  Clicking in that zone removes
-the most recently acquired point.
-
-Finally, the actual digitization process begins, with the
-user clicking within the plot region, using the "undo"
-zone to correct mistakes, and the "stop" zone to finish.
-
-Points that are clicked are indicated on the plot.
-
-To digitize a second curve with the same axes, one may
-use 'getdata()', supplying it with 'X', 'Y', 'S' and 'U'
-values returend by 'imagedata'.
+Then it's time to digitize image data. If a mistake is made,
+click in the UNDO zone. To stop digitizing, click in the STOP
+zone.  The results of \code{imagedata} are a list, of which
+the two most interesting components are \code{x} and \code{y},
+the coordinates of the clicked points, translated to the
+coordinates of the plot (i.e. using the axis information).
 }
 \examples{
 \dontrun{
