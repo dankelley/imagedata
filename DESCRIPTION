@@ -11,5 +11,5 @@ BugReports:
     https://github.com/dankelley/imagedata/issues?sort=created&direction=desc&state=open
 Description: Works only with PNG files, and only with linear axes.
 License: GPL (>= 2)
-URL: http://dankelley.github.com/digization/
+URL: http://dankelley.github.com/imagedata/
 Packaged: Dan Kelley
