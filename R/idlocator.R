@@ -1,48 +1,37 @@
-## Find data, with undo and stop regions.
-idlocator <- function(n=1, S=NULL, U=NULL,
+#' Digitize a point, or UNDO, or STOP.
+#'
+#' @param S information on the STOP region
+#' @param U information on the UNDO region
+#' @param X information on the x scale
+#' @param Y information on the y scale
+#' @param bell TRUE to ring the bell with mouse clicks
+#' @param verbose TRUE to print more information
+#' @param type 'p' for points, 'n' for none, etc as for \code{\link{plot}}
+#' @param col colour (ignored unless plotting) as for \code{\link{par}}
+#' @param lwd line width of symbols as for \code{\link{par}}
+#' @param pch symbol code as for \code{\link{par}}
+#' @param cex symbol size expansion factor as 0for \code{\link{par}}
+#'
+#' @return a list containing digitized values \code{x} and \code{y} along with \code{status}, which may be \code{"DATA"} for data, \code{"AXIS"} for axis information, \code{"STOP"} for a click in the STOP region, or \code{"UNDO"} for a click in the UNDO region.
+#' plus other properties 
+#' @export idlocator
+idlocator <- function(S=NULL, U=NULL,
                       X=NULL, Y=NULL,
-                      col='red', pch=20, cex=1/2,
-                      bell=TRUE, verbose=TRUE)
+                      bell=TRUE, verbose=TRUE,
+                      type='p', col='red', lwd=par("lwd"), pch=20, cex=1/2)
 {
-    ## FIXME: catch 'stop' and 'edit' here, not elsewhere
-    x <- y <- xu <- yu <- NULL
-    i <- 1L
-    while (i <= n) {
-        xy <- locator(1, type='p', col=col, pch=pch, cex=cex)
-        if (bell)
-            alarm()
-        ## if 'stop', do not record, and return what we have so far
-        if (!is.null(S) && (xy$x > S$x && xy$y > S$y)) { # STOP: detect condition in calling code
-            if (verbose) message(sprintf("  digitized %d points", i-1))
-            break
-        }
-        ## if "UNDO", remove last point
-        if (!is.null(U) && (xy$x < U$x && xy$y < U$y)) { # UNDO
-            if (i > 1) {
-                if (verbose)
-                    message(sprintf("  removed x[%d]=%.4g and y[%d]=%.4g ", i-1, xu[i-1], i-1, yu[i-1]))
-                x <- tail(x, -1)
-                y <- tail(y, -1)
-                i <- i - 1L
-            }
-        } else {
-            ## OK, it's not STOP and not UNDO.  Add to the output vectors.
-            if (!is.null(X) && !is.null(Y)) {
-                xx <- X$a + X$b * xy$x
-                yy <- Y$a + Y$b * xy$y
-            } else {
-                xx <- xy$x
-                yy <- xy$y
-            }
-             if (verbose) {
-                message(sprintf("  added   x[%d]=%.4g and y[%d]=%.4g", i, xx, i, yy))
-            }
-            x <- c(x, xy$x)
-            y <- c(y, xy$y)
-            xu <- c(xu, xx)
-            yu <- c(yu, yy)
-            i <- i + 1L
-        }
+    xy <- locator(1, type='n', col=col, pch=pch, cex=cex)
+    if (bell) alarm()
+    if (!is.null(S) && (xy$x > S$x && xy$y > S$y))
+        return(list(x=xy$x, y=xy$y, status="STOP"))
+    if (!is.null(U) && (xy$x < U$x && xy$y < U$y))
+        return(list(x=NULL, y=NULL, status="UNDO"))
+    # OK, must be a data point, but it could be actual data, or axis data.
+    if (type == "p") 
+        points(xy$x, xy$y, col=col, pch=pch, cex=cex)
+    if (!is.null(X) && !is.null(Y)) {
+        return(list(x=as.numeric(X$a + X$b * xy$x),
+                    y=as.numeric(Y$a + Y$b * xy$y), status="DATA"))
     }
-    list(x=xu, y=yu)
+    return(list(x=xy$x, y=xy$y, status="AXIS"))
 }
