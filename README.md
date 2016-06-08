@@ -23,4 +23,10 @@ for a non-rotated image (e.g. from a screen capture) or e.g.
 
 for a rotated image (e.g. from a photocopy).
 
-Please report any bugs on the "issues" part of the github development website.
+Please report any bugs on the <a
+href="https://github.com/dankelley/imagedata/issues">"issues"</a> part of the
+github development website.
+
+
+
+[issues](https://github.com/dankelley/imagedata/issues)
