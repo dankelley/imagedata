@@ -10,7 +10,7 @@ console:
 
 
     library(devtools)
-    install_github('imagedata', 'dankelley', 'develop')
+    install_github(repo='dankelley/imagedata', ref='develop')
 
 After installation, imagedata is used as e.g.
 
